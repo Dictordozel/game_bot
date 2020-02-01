@@ -1,30 +1,49 @@
-let z = 5;
 
-function getNumber() {
-    z--;
-    let x = 48;
-    let y = prompt('Угадай число от 1 до 100');
-    switch(true) {
+function getRandomNumber() {
+    return Math.ceil(Math.random() * 100);
+}
+
+function isNumber(number) {
+    return(!isNaN(parseFloat(number)) && isFinite(number));
+}
+
+
+function startGame() {
+
+    let randomNumber = getRandomNumber();
+
+    let welcome = confirm('Хэллоу, амиго! Слабо с 10 попыток угадать число от 1 до 100?');
+
+    welcome === true ? gameRuls() : alert('Асталависта, зануда!');
+
+    function gameRuls() {
+
+        let gamerNumber = prompt('Введи число!');
+
+        if(isNumber(gamerNumber)) {
+            
+            //gamerNumber = +gamerNumber;
+
+            if(gamerNumber < randomNumber) {
+                alert('Загаданное число больше! Попробуй еще раз!');
+                return gameRuls();
+
+            } else if(gamerNumber > randomNumber) {
+                alert('Загаданное число меньше! Попробуй еще раз!');
+                return gameRuls();
+
+            }   else {
+                return alert('BINGO!!!!!!!!!');
+            }
         
-        case (isNaN(y) || y.trim === ''):
-            confirm('Введи число!');
-            return getNumber();
-        case (y > x) && (z > 0):
-            alert('Загаданное число меньше! Попробуй еще раз!');
-            confirm('У тебя осталось ' + z + ' попыток');
-            return getNumber();
-        case (y < x) && (z > 0):
-            alert('Загаданное число больше! Попробуй еще раз!');
-            confirm('У тебя осталось ' + z + ' попыток');
-            return getNumber();
-        case (z === 0):
-            alert('GAME OVER!!! BUENAS NOCHES AMIGO!!!');
-            break;
-        case (y === false):
-            break;
-            default:
-            alert('BINGO!!!!!!!!!');
-        
+        }   else if(gamerNumber === null) {
+            alert('Асталависта, зануда!');
+            return;
+
+        }   else {
+        alert('Так не пойдет! Введи число!');
+        return gameRuls();    
+        }
     }
-} 
-getNumber(); 
+}
+startGame();
